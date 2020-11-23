@@ -18,17 +18,33 @@ bool isEmpty(stack *p);
 void show(stack *p);
 void clean(stack *p);
 bool isSorted(stack *p);
+void reverse(stack *p);
+bool isEquals(stack *p1, stack *p2);
 
 int main() {
-	stack *p;
+	stack *p, *p2;
 	p=create();
-	printf("%p\n", p->top);
+	p2=create();
 	push(p, 3);
 	push(p, 2);
 	push(p, 1);
-	show(p);
+	push(p2, 3);
+	push(p2, 2);
+	push(p2, 1);
+	printf("Normal p stack\n");
 	printf("------------------------------\n");
-	printf("%d\n", isSorted(p));
+	show(p);
+	printf("Normal p2 stack\n");
+	printf("------------------------------\n");
+	show(p2);
+	printf("Stacks isEquals\n");
+	printf("------------------------------\n");
+	printf("%d\n", isEquals(p, p2));
+	printf("P1 stack reversed\n");
+	printf("------------------------------\n");
+	reverse(p);
+	show(p);
+	printf("Cleaned stack\n");
 	printf("------------------------------\n");
 	clean(p);
 	
@@ -108,5 +124,32 @@ bool isSorted(stack *p) {
 		}
 	}
 	return 1;
+}
 
+void reverse(stack *p) {
+	stack *aux;
+	aux = create();
+	while(!isEmpty(p)) {
+		push(aux, pop(p));
+
+	}
+	p->top=aux->top;
+	aux->top=NULL;
+	free(aux);
+}
+
+bool isEquals(stack *p1, stack *p2) {
+	while(!isEmpty(p1) && !isEmpty(p2)) {
+		if(pop(p1) != pop(p2)) {
+			clean(p1);
+			clean(p2);
+			return false;
+		}
+	}
+	if(!isEmpty(p1) || !isEmpty(p2)) {
+		clean(p1);
+		clean(p2);
+		return false;
+	}
+	return true;
 }
