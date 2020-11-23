@@ -15,20 +15,31 @@ stack * create();
 void push(stack *p, int i);
 int pop(stack *p);
 bool isEmpty(stack *p);
+void show(stack *p);
+void clean(stack *p);
+bool isSorted(stack *p);
 
 int main() {
 	stack *p;
 	p=create();
 	printf("%p\n", p->top);
-	push(p, 1);
-	push(p, 2);
 	push(p, 3);
-	printf("%d\n", p->top->num);
+	push(p, 2);
+	push(p, 1);
+	show(p);
+	printf("------------------------------\n");
+	printf("%d\n", isSorted(p));
+	printf("------------------------------\n");
+	clean(p);
+	
+	show(p);
+	/*
 	printf("%d\n", pop(p));
 	printf("%d\n", pop(p));
 	printf("%d\n", p->top->num);
 	printf("%d\n", pop(p));
 	printf("%d\n", isEmpty(p));
+	*/
 	return 0;
 }
 
@@ -61,4 +72,41 @@ bool isEmpty(stack *p) {
 	if(p->top == NULL)
 		return true;
 	return false;
+}
+
+void show(stack *p) {
+	no *aux;
+	if(isEmpty(p))
+		printf("Pilha vazia\n");
+	else {
+		aux = p->top;
+		while(aux!=NULL) {
+			printf("%d\n", aux->num);
+			aux = aux->prox;
+		}
+	}
+}
+
+void clean(stack *p) {
+	int num;
+	while(!isEmpty(p)) {
+		num=pop(p);
+	}
+}
+
+bool isSorted(stack *p) {
+	int aux, num;
+	if(isEmpty(p)) {
+		printf("Pilha vazia\n");
+		return 0;
+	}
+	num = pop(p);
+	while(!isEmpty(p)) {
+		aux = pop(p);
+		if(num > aux) {
+			return 0;
+		}
+	}
+	return 1;
+
 }
