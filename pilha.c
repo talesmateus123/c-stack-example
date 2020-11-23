@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include <stdbool.h>
 
 typedef struct n {
 	int num;
@@ -13,6 +14,7 @@ typedef struct t {
 stack * create();
 void push(stack *p, int i);
 int pop(stack *p);
+bool isEmpty(stack *p);
 
 int main() {
 	stack *p;
@@ -25,6 +27,8 @@ int main() {
 	printf("%d\n", pop(p));
 	printf("%d\n", pop(p));
 	printf("%d\n", p->top->num);
+	printf("%d\n", pop(p));
+	printf("%d\n", isEmpty(p));
 	return 0;
 }
 
@@ -51,4 +55,10 @@ int pop(stack *p) {
 	num=aux->num;
 	free(aux);
 	return num;
+}
+
+bool isEmpty(stack *p) {
+	if(p->top == NULL)
+		return true;
+	return false;
 }
